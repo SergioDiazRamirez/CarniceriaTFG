@@ -1,0 +1,7 @@
+{
+  "name": "carniceriaApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
