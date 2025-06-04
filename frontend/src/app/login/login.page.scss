@@ -1,0 +1,28 @@
+.login-container {
+  width: 100%;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+ion-item {
+  --background: transparent;
+  margin-bottom: 1rem;
+}
+
+ion-input,
+ion-button {
+  width: 100%;
+}
+
+.error-message {
+  font-size: 0.85rem;
+  color: #eb445a;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+ion-button {
+  margin-top: 1rem;
+}
