@@ -67,6 +67,7 @@ php artisan serve
 ```bash
 cd ../frontend
 npm install
+npm install -g @ionic/cli
 ionic serve
 ```
 
