@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'REGISTER.REGISTER' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">{{ 'NAME' | translate }}</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="name?.touched && name?.hasError('required')">
+      {{ 'REGISTER.NAME_REQUIRED' | translate }}
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">{{ 'EMAIL' | translate }}</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="email?.touched && email?.hasError('required')">
+      {{ 'REGISTER.EMAIL_REQUIRED' | translate }}
+    </ion-text>
+    <ion-text color="danger" *ngIf="email?.touched && email?.hasError('email')">
+      {{ 'REGISTER.EMAIL_INVALID' | translate }}
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">{{ 'PASSWORD' | translate }}</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="password?.touched && password?.hasError('required')">
+      {{ 'REGISTER.PASSWORD_REQUIRED' | translate }}
+    </ion-text>
+    <ion-text color="danger" *ngIf="password?.touched && password?.hasError('minlength')">
+      {{ 'REGISTER.PASSWORD_MINLENGTH' | translate }}
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">{{ 'CONFIRM_PASSWORD' | translate }}</ion-label>
+      <ion-input formControlName="password_confirmation" type="password"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="password_confirmation?.touched && password_confirmation?.hasError('required')">
+      {{ 'REGISTER.CONFIRM_PASSWORD_REQUIRED' | translate }}
+    </ion-text>
+    <div></div>
+    <ion-text color="danger" *ngIf="registerForm.hasError('passwordsMismatch') && password_confirmation?.touched">
+      {{ 'REGISTER.PASSWORDS_MISMATCH' | translate }}
+    </ion-text> 
+
+    <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">{{ 'REGISTER.BUTTON' | translate }}</ion-button>
+  </form>
+</ion-content>
