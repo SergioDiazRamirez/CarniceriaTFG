@@ -1,0 +1,23 @@
+{
+  "LOGIN": {
+    "LOGIN": "Login",
+    "INVALID_CREDENTIALS": "Incorrect username or password",
+    "EMAIL_INVALID": "Invalid email",
+    "PASSWORD_REQUIRED": "Password is required"
+  },
+  "REGISTER": {
+    "REGISTER": "Registration",
+    "NAME_REQUIRED": "Name is required",
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Invalid email",
+    "PASSWORD_REQUIRED": "Password is required",
+    "PASSWORD_MINLENGTH": "Minimum 8 characters",
+    "CONFIRM_PASSWORD_REQUIRED": "Confirmation is required",
+    "PASSWORDS_MISMATCH": "Passwords do not match",
+    "BUTTON": "Sign Up"
+  },
+  "NAME": "Name",
+  "EMAIL": "Email",
+  "PASSWORD": "Password",
+  "CONFIRM_PASSWORD": "Confirm Password"
+}

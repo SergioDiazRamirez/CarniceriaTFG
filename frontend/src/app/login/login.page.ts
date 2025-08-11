@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,9 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
 
   loginForm!: FormGroup
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
+              private uiService: UiService
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -42,7 +45,7 @@ export class LoginPage implements OnInit {
       },
       error: (err) => {
         console.error('Error de login', err);
-        // TODO: Mostrar mensaje de error al usuario
+        this.uiService.showToast('LOGIN.INVALID_CREDENTIALS', 'danger');
       }
     });
   }

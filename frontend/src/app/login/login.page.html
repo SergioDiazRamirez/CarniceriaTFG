@@ -1,29 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title>{{ 'LOGIN.LOGIN' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding login-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">{{ 'EMAIL' | translate }}</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
     <ion-note class="error-message" color="danger" *ngIf="email?.invalid && email?.touched">
-      Please enter a valid email.
+      {{ "LOGIN.EMAIL_INVALID" | translate }}
     </ion-note>
 
     <ion-item>
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">{{ 'PASSWORD' | translate }}</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
     <ion-note class="error-message" color="danger" *ngIf="password?.invalid && password?.touched">
-      Password is required.
+      {{ "LOGIN.PASSWORD_REQUIRED" | translate }}
     </ion-note>
 
     <ion-button type="submit" expand="block" [disabled]="loginForm.invalid">
-      Login
+      {{ 'LOGIN.LOGIN' | translate }}
     </ion-button>
   </form>
 </ion-content>

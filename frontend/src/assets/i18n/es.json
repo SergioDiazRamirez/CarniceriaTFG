@@ -1,0 +1,23 @@
+{
+  "LOGIN": {
+    "LOGIN": "Iniciar sesión",
+    "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos",
+    "EMAIL_INVALID": "Correo electrónico no válido",
+    "PASSWORD_REQUIRED": "La contraseña es obligatoria"
+  },
+  "REGISTER": {
+    "REGISTER": "Registro",
+    "NAME_REQUIRED": "El nombre es obligatorio",
+    "EMAIL_REQUIRED": "El correo electrónico es obligatorio",
+    "EMAIL_INVALID": "Correo electrónico no válido",
+    "PASSWORD_REQUIRED": "La contraseña es obligatoria",
+    "PASSWORD_MINLENGTH": "Mínimo 8 caracteres",
+    "CONFIRM_PASSWORD_REQUIRED": "La confirmación es obligatoria",
+    "PASSWORDS_MISMATCH": "Las contraseñas no coinciden",
+    "BUTTON": "Registrarse"
+  },
+  "NAME": "Nombre",
+  "EMAIL": "Correo electrónico",
+  "PASSWORD": "Contraseña",
+  "CONFIRM_PASSWORD": "Confirmar contraseña"
+}
