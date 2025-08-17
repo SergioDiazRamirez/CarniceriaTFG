@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button fill="clear">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>{{ 'PRODUCTS.TITLE' | translate}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Buscador -->
+  <ion-searchbar placeholder="{{'SEARCH' | translate }}..." [(ngModel)]="searchTerm" (ionInput)="filterProducts()">
+  </ion-searchbar>
+
+  <!-- Categorías -->
+   <div>
+  <div class="categories">
+    <ion-button *ngFor="let category of categories" fill="solid" size="small"
+      [color]="selectedCategory === category ? 'primary' : 'medium'" (click)="filterByCategory(category)">
+      {{ category.name }}
+    </ion-button>
+  </div>
+  </div>
+
+  <!-- Lista de productos -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let product of filteredProducts">
+        <ion-card>
+          <ng-container *ngIf="product.image; else noImage">
+            <img [src]="product.image" alt="{{ product.name }}">
+          </ng-container>
+          <ng-template #noImage>
+            <ion-icon name="image-outline" style="font-size: 140px; color: #ccc;"></ion-icon>
+          </ng-template>
+          <ion-card-content>
+            <div>{{ product.name }}</div>
+            <p>
+              {{ product.price | currency:'EUR':'symbol':'1.2-2' }}/kg
+              <ion-icon name="heart-outline"></ion-icon>
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'PRODUCTS.LOADING_MORE' | translate }}...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<!-- Footer / Tabs -->
+<ion-footer>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="categories">
+      <ion-icon name="grid-outline"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="favorites">
+      <ion-icon name="heart-outline"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="cart">
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="profile">
+      <ion-icon name="person-outline"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>
