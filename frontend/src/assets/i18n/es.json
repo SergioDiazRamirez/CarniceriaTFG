@@ -1,4 +1,9 @@
 {
+  "NAME": "Nombre",
+  "EMAIL": "Correo electrónico",
+  "PASSWORD": "Contraseña",
+  "CONFIRM_PASSWORD": "Confirmar contraseña",
+  "SEARCH": "Buscar",
   "LOGIN": {
     "LOGIN": "Iniciar sesión",
     "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos",
@@ -16,8 +21,28 @@
     "PASSWORDS_MISMATCH": "Las contraseñas no coinciden",
     "BUTTON": "Registrarse"
   },
-  "NAME": "Nombre",
-  "EMAIL": "Correo electrónico",
-  "PASSWORD": "Contraseña",
-  "CONFIRM_PASSWORD": "Confirmar contraseña"
+  "PRODUCTS": {
+    "TITLE": "Productos",
+    "LOAD_ERROR": "Error al cargar los productos",
+    "LOADING_MORE": "Cargando más productos",
+    "MY_FAVORITES": "Mis favoritos"
+  },
+  "CATEGORY": {
+    "LOAD_ERROR": "Error al cargar las categorías"
+  },
+
+  "INGREDIENTS": "Ingredientes",
+  "DESCRIPTION": "Descripción",
+  "SELECT_WEIGHT": "Seleccionar peso",
+  "UNITS": "Unidades",
+  "ADD_TO_CART": "Añadir al carrito",
+  "BUY_NOW": "Comprar",
+  "CART": "Carrito",
+  "cart": {
+    "empty": "El carrito está vacío",
+    "total": "Total",
+    "checkout": "Finalizar compra",
+    "unit": "ud.",
+    "units": "uds."
+  }
 }

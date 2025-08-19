@@ -24,6 +24,15 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+    public function favoriteProducts()
+    {
+        return $this->belongsToMany(Product::class,'favorite_user_product', 'user_id', 'product_id');
+    }
+    
     /**
      * The attributes that should be hidden for serialization.
      *
