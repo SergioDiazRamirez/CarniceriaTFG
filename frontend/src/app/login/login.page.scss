@@ -1,9 +1,5 @@
-.login-container {
-  width: 100%;
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+form {
+  margin-top: 50px;
 }
 
 ion-item {
@@ -24,5 +20,14 @@ ion-button {
 }
 
 ion-button {
-  margin-top: 1rem;
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 70vw;
+}
+
+.toRegister {
+  margin-top: 10px;
+  text-align: center;
+  color: #2682a0;
+  text-decoration-line: underline;
 }

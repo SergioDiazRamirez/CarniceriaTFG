@@ -39,9 +39,9 @@ export class LoginPage implements OnInit {
     }
     this.authService.login(this.loginForm.value).subscribe({
       next: async (res) => {
-        await this.authService.setToken(res.access_token);
+        await this.authService.setToken(res.access_token); //TODO: con el tiempo el back deci unauthorized
         console.log('Login exitoso', res);
-        this.router.navigateByUrl('/home');
+        this.router.navigate(['tabs']);
       },
       error: (err) => {
         console.error('Error de login', err);
