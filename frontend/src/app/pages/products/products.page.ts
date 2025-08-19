@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product.model';
 import { TranslateService } from '@ngx-translate/core';
 import { UiService } from 'src/app/services/ui.service';
 import { Category } from 'src/app/models/category.model';
 import { CategoryService } from 'src/app/services/category.service';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-products',
@@ -17,13 +20,15 @@ export class ProductsPage implements OnInit {
   filteredProducts: Product[] = [];
   page = 1;
   searchTerm = '';
-  categories: Category[] | null = null;;
+  categories: Category[] | null = null;
   selectedCategory: Category | null = null;
   loading = false;
   totalPages = 1;
+  isFavoritesFilter = false;
+  isInfiniteDisabled = false;
 
   constructor(private productService: ProductService, private uiService: UiService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService, private router: Router, public authService: AuthService) { }
 
   ngOnInit() {
     this.loadCategories();
@@ -44,12 +49,12 @@ export class ProductsPage implements OnInit {
 
   loadProducts(page = 1, event?: any) {
     if (page > this.totalPages) {
-      if (event) event.target.disabled = true;
+      // if (event) event.target.disabled = true;
       return;
     }
     this.loading = true;
-
-    this.productService.getProducts(page, this.searchTerm, this.selectedCategory?.id).subscribe({
+    const favoritesOnly = this.isFavoritesFilter ? '1' : '';
+    this.productService.getProducts(page, this.searchTerm, this.selectedCategory?.id, favoritesOnly).subscribe({
       next: (res) => {
         this.page = res.current_page;
         this.totalPages = res.last_page;
@@ -60,7 +65,7 @@ export class ProductsPage implements OnInit {
         this.loading = false;
 
         if (event) event.target.complete();
-        if (page >= this.totalPages && event) event.target.disabled = true;
+        if (page >= this.totalPages) this.isInfiniteDisabled = true;
       },
       error: (err) => {
         this.loading = false
@@ -95,12 +100,35 @@ export class ProductsPage implements OnInit {
   }
 
   filterByCategory(category: Category) {
-    if (this.selectedCategory === category) {
-      this.selectedCategory = null;
-    } else {
-      this.selectedCategory = category;
-    }
+    this.selectedCategory = this.selectedCategory === category ? null : category;
     this.filterProducts();
   }
+
+  goToDetail(product: Product) {
+    this.router.navigate(['/tabs/product-detail', product.id], {state: {product}});
+  }
+
+  toggleFavorite(product: Product, event: Event) {
+    event.stopPropagation(); // para que no navegue al detalle si clican el corazón
+    if (product.isFavorite) {
+      this.productService.removeFavorite(product.id).subscribe({
+        next: () => product.isFavorite = false
+      });
+    } else {
+      this.productService.addFavorite(product.id).subscribe({
+        next: () => product.isFavorite = true
+      });
+    }
+  }
+
+  toggleFavoritesFilter() {
+    this.isFavoritesFilter = !this.isFavoritesFilter;
+    this.page = 1;
+    this.products = [];
+    this.filteredProducts = [];
+    this.isInfiniteDisabled = false; // habilitar scroll infinito de nuevo
+    this.loadProducts();
+  }
+
 }
 

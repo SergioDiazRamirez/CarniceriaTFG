@@ -22,20 +22,25 @@
   </ion-searchbar>
 
   <!-- Categorías -->
-   <div>
-  <div class="categories">
-    <ion-button *ngFor="let category of categories" fill="solid" size="small"
-      [color]="selectedCategory === category ? 'primary' : 'medium'" (click)="filterByCategory(category)">
-      {{ category.name }}
-    </ion-button>
+  <div>
+    <div class="categories">
+      <ion-button *ngFor="let category of categories" fill="solid" size="small"
+        [color]="selectedCategory === category ? 'primary' : 'medium'" (click)="filterByCategory(category)">
+        {{ category.name }}
+      </ion-button>
+    </div>
   </div>
-  </div>
-
+  <!-- Botón para mostrar favoritos -->
+  <ion-button *ngIf="authService.isLoggedIn()" [color]="isFavoritesFilter === true ? 'primary' : 'medium'"
+    fill="outline" size="small" (click)="toggleFavoritesFilter()">
+    {{ 'PRODUCTS.MY_FAVORITES' | translate }}
+  </ion-button>
+  
   <!-- Lista de productos -->
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let product of filteredProducts">
-        <ion-card>
+        <ion-card (click)="goToDetail(product)">
           <ng-container *ngIf="product.image; else noImage">
             <img [src]="product.image" alt="{{ product.name }}">
           </ng-container>
@@ -45,8 +50,14 @@
           <ion-card-content>
             <div>{{ product.name }}</div>
             <p>
-              {{ product.price | currency:'EUR':'symbol':'1.2-2' }}/kg
-              <ion-icon name="heart-outline"></ion-icon>
+              <span>
+                {{ product.price | currency:'EUR':'symbol':'1.2-2' }}
+                <span *ngIf="product.sale_type_id === 1">/Kg</span>
+                <span *ngIf="product.sale_type_id === 2">/Ud</span>
+                <span *ngIf="product.sale_type_id === 3">/Kg</span>
+              </span>
+              <ion-icon [name]="product.isFavorite ? 'heart' : 'heart-outline'"
+                [color]="product.isFavorite ? 'danger' : 'medium'" (click)="toggleFavorite(product, $event)"></ion-icon>
             </p>
           </ion-card-content>
         </ion-card>
@@ -54,29 +65,8 @@
     </ion-row>
   </ion-grid>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll [disabled]="this.isInfiniteDisabled" threshold="100px" (ionInfinite)="loadMore($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'PRODUCTS.LOADING_MORE' | translate }}...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
-
-<!-- Footer / Tabs -->
-<ion-footer>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
-      <ion-icon name="home-outline"></ion-icon>
-    </ion-tab-button>
-    <ion-tab-button tab="categories">
-      <ion-icon name="grid-outline"></ion-icon>
-    </ion-tab-button>
-    <ion-tab-button tab="favorites">
-      <ion-icon name="heart-outline"></ion-icon>
-    </ion-tab-button>
-    <ion-tab-button tab="cart">
-      <ion-icon name="cart-outline"></ion-icon>
-    </ion-tab-button>
-    <ion-tab-button tab="profile">
-      <ion-icon name="person-outline"></ion-icon>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-footer>

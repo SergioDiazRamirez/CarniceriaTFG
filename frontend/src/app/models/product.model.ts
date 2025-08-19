@@ -10,4 +10,5 @@ export interface Product {
     image?: string;
     sale_type_id: number;
     categories: Category[];
+    isFavorite?: boolean; //TODO: AÑADIR WHEIGHTS
 }

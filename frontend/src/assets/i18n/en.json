@@ -1,4 +1,8 @@
 {
+  "NAME": "Name",
+  "EMAIL": "Email",
+  "PASSWORD": "Password",
+  "CONFIRM_PASSWORD": "Confirm Password",
   "LOGIN": {
     "LOGIN": "Login",
     "INVALID_CREDENTIALS": "Incorrect username or password",
@@ -16,8 +20,8 @@
     "PASSWORDS_MISMATCH": "Passwords do not match",
     "BUTTON": "Sign Up"
   },
-  "NAME": "Name",
-  "EMAIL": "Email",
-  "PASSWORD": "Password",
-  "CONFIRM_PASSWORD": "Confirm Password"
+  "PRODUCTS": {
+    "TITLE": "Products",
+    "LOAD_ERROR": "Error loading products"
+  }
 }
