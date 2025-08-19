@@ -12,15 +12,25 @@ import { PaginatedResponse } from '../models/paginatedResponse.model';
 export class ProductService {
   private baseUrl = `${environment.apiUrl}/products`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getProducts(page = 1, search = '', categoryId: number | null = null): Observable<PaginatedResponse<Product>>  {
+  getProducts(page = 1, search = '', categoryId: number | null = null, favoritesOnly: string = ''): Observable<PaginatedResponse<Product>> {
     let params = new HttpParams()
       .set('page', page.toString());
 
     if (search) params = params.set('search', search);
     if (categoryId) params = params.set('category_id', categoryId.toString());
-
+    if (favoritesOnly) params = params.set('favorites', favoritesOnly);
+    
     return this.http.get<PaginatedResponse<Product>>(this.baseUrl, { params });
   }
+
+  addFavorite(productId: number): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/favorites`, { product_id: productId });
+  }
+
+  removeFavorite(productId: number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/favorites/${productId}`);
+  }
+
 }

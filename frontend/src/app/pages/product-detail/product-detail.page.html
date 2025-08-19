@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/products"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{ product.name }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Imagen -->
+  <div class="product-image">
+    <img [src]="product.image" alt="{{ product.name }}">
+  </div>
+  <!-- Nombre y precio -->
+  <ion-item lines="none">
+    <ion-label>
+      <h2>{{ product.name }}</h2>
+    </ion-label>
+    <ion-note slot="end" color="dark">
+      {{ product.price | currency:'EUR':'symbol':'1.2-2' }}
+      <span *ngIf="product.sale_type_id === 1">/Kg</span>
+      <span *ngIf="product.sale_type_id === 2">/Kg</span>
+      <span *ngIf="product.sale_type_id === 3">/Ud</span>
+    </ion-note>
+  </ion-item>
+
+  <!-- Ingredientes y descripción -->
+  <ion-card>
+    <ion-card-content>
+      <p><strong>{{ 'INGREDIENTS' | translate }}:</strong> {{ product.ingredients }}</p>
+      <p><strong>{{ 'DESCRIPTION' | translate }}:</strong> {{ product.description }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Opciones según sale_type_id -->
+  <div class="options">
+    <!-- Venta por peso -->
+    <ng-container *ngIf="product.sale_type_id === 1">
+      <ion-item>
+        <ion-label>{{ 'SELECT_WEIGHT' | translate }}</ion-label>
+        <ion-select [(ngModel)]="selectedWeight">
+          <ion-select-option *ngFor="let weight of weights" [value]="weight">
+            {{ weight }} Kg
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ng-container>
+
+    <!-- Venta por unidades -->
+    <ng-container *ngIf="product.sale_type_id === 2">
+      <ion-item>
+        <ion-label>{{ 'UNITS' | translate }}</ion-label>
+        <ion-select [(ngModel)]="selectedUnits">
+          <ion-select-option *ngFor="let n of units" [value]="n">
+            {{ n }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ng-container>
+  </div>
+
+  <!-- Venta por peso + unidades -->
+  <ng-container *ngIf="product.sale_type_id === 3">
+    <ion-item>
+      <ion-label>{{ 'SELECT_WEIGHT' | translate }}</ion-label>
+      <ion-select [(ngModel)]="selectedWeight">
+        <ion-select-option *ngFor="let weight of weights" [value]="weight">
+          {{ weight }} Kg
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{ 'UNITS' | translate }}</ion-label>
+      <ion-select [(ngModel)]="selectedUnits">
+        <ion-select-option *ngFor="let n of units" [value]="n">
+          {{ n }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ng-container>
+
+  <!-- Botones -->
+  <div class="actions">
+    <ion-button expand="block" color="medium" (click)="addToCart(product)">
+      {{ 'ADD_TO_CART' | translate }}
+    </ion-button>
+    <ion-button expand="block" color="primary" (click)="buyNow(product)">
+      {{ 'BUY_NOW' | translate }}
+    </ion-button>
+  </div>
+
+</ion-content>
