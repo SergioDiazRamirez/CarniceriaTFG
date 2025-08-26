@@ -13,6 +13,8 @@ import { UiService } from '../services/ui.service';
 export class LoginPage implements OnInit {
 
   loginForm!: FormGroup
+  passwordFieldType: string = 'password';
+
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
               private uiService: UiService
   ) { }
@@ -24,6 +26,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  ionViewWillEnter() {
+    this.loginForm.reset();
+  }
+  
   get email() {
     return this.loginForm.get('email');
   }
@@ -48,5 +54,9 @@ export class LoginPage implements OnInit {
         this.uiService.showToast('LOGIN.INVALID_CREDENTIALS', 'danger');
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 }

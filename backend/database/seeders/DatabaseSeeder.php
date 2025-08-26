@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         //TODO: Descomentar seeders
         //$this->call(CategorySeeder::class);
         // $this->call(SaleTypesTableSeeder::class);
-        $this->call(ProductsTableSeeder::class);
+        //$this->call(ProductsTableSeeder::class);
         // $this->call(ProductWeightsTableSeeder::class);  
+        //$this->call(OrderStatusTableSeeder::class);
     }
 }

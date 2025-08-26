@@ -1,0 +1,49 @@
+.actions {
+  margin-top: 2rem;
+
+  ion-button {
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+  }
+}
+
+ion-card {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+:host ion-radio::part(container) {
+  width: 13px;
+  height: 13px;
+}
+
+.add-circle-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.add-circle {
+  color: var(--ion-color-primary);
+  font-size: 16px;
+}
+
+.radio {
+  --padding-start: 0;
+}
+
+ion-item {
+  display: flex;
+  align-items: center;
+
+  ion-buttons {
+    margin-left: auto;
+
+    ion-button {
+      --padding-start: 0;
+      --padding-end: 0;
+    }
+  }
+}
+
+.add-btn {
+  margin-top: 1rem;
+}

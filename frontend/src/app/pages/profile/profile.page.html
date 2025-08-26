@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'PROFILE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="userForm">
+    <form [formGroup]="userForm">
+      <!-- Nombre -->
+      <ion-item>
+        <ion-input formControlName="name" placeholder="{{ 'NAME' | translate }}" (ionBlur)="saveChanges()"></ion-input>
+      </ion-item>
+
+      <!-- Email -->
+      <ion-item>
+        <ion-input formControlName="email" placeholder="{{ 'EMAIL' | translate }}"
+          (ionBlur)="saveChanges()"></ion-input>
+      </ion-item>
+
+      <!-- Direcciones -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ 'MY_ADDRESSES' | translate }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+
+          <div formArrayName="addresses">
+            <!-- <ion-radio-group [value]="userForm.get('default_address_id')?.value"
+              (ionChange)="setDefaultAddress($event.detail.value)"> -->
+              <ion-item *ngFor="let addr of addresses.controls; let i = index" [formGroupName]="i">
+                <!-- <ion-radio slot="start" [value]="i" 
+                  [checked]="addr.value.is_default" (ionSelect)="setDefaultAddress(i)"></ion-radio> -->
+                <ion-input formControlName="full_address" (ionBlur)="saveChanges()"
+                  [placeholder]="'ENTER_ADDRESS' | translate"></ion-input>
+                <ion-buttons slot="end">
+                  <ion-button fill="clear" color="danger" size="small" (click)="deleteAddress(i)">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-item>
+            <!-- </ion-radio-group> -->
+          </div>
+
+          <div class="add-circle-container">
+            <ion-icon *ngIf="addresses.length < 5" class="add-circle" name="add-circle-outline"
+              (click)="addAddress()"></ion-icon>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </form>
+
+    <!-- Botones de acciones -->
+    <div class="actions">
+      <ion-button expand="block" (click)="goToOrders()">
+        {{ 'MY_ORDERS' | translate }}
+      </ion-button>
+
+      <ion-button expand="block" (click)="goToCards()">
+        {{ 'MY_CARDS' | translate }}
+      </ion-button>
+
+      <ion-button expand="block" (click)="changePassword()">
+        {{ 'CHANGE_PASSWORD' | translate }}
+      </ion-button>
+
+      <ion-button expand="block" color="medium" (click)="logout()">
+        {{ 'LOGOUT' | translate }}
+      </ion-button>
+
+      <ion-button expand="block" color="danger" (click)="deleteAccount()">
+        {{ 'DELETE_ACCOUNT' | translate }}
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
