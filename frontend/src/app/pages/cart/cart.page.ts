@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { CartItem } from '../../models/cart-item.model';
+import { Item } from '../../models/item.model';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cart',
@@ -9,9 +10,9 @@ import { CartItem } from '../../models/cart-item.model';
   standalone: false
 })
 export class CartPage implements OnInit {
-  cartItems: CartItem[] = [];
+  cartItems: Item[] = [];
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private alertCtrl: AlertController) {}
 
   ngOnInit() {
     this.cartService.cartItems$.subscribe(items => {
@@ -19,18 +20,29 @@ export class CartPage implements OnInit {
     });
   }
 
-  updateQuantity(item: CartItem, event: any) {
+  updateQuantity(item: Item, event: any) {
     const value = Number(event.detail.value);
     this.cartService.updateItem(item, value, item.weight);
   }
 
-  updateWeight(item: CartItem, event: any) {
+  updateWeight(item: Item, event: any) {
     const value = Number(event.detail.value);
     this.cartService.updateItem(item, item.quantity, value);
   }
 
-  removeItem(item: CartItem) {
-    this.cartService.removeFromCart(item);
+  async removeItem(item: Item) {
+        const alert = await this.alertCtrl.create({
+      header: 'Eliminar producto',
+      message: '¿Seguro que deseas eliminar este producto?',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Eliminar',
+          handler:  () => { this.cartService.removeFromCart(item) }          
+        }
+      ]
+    });
+    await alert.present();
   }
 
   getTotal(): number {

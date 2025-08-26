@@ -44,7 +44,7 @@
             </ion-select-option>
           </ion-select>
 
-          <!-- Weight + units -->
+          <!-- Weight + quantity -->
           <div *ngSwitchCase="3" class="weight-units">
             <ion-select [(ngModel)]="item.weight" (ionChange)="updateWeight(item, $event)">
               <ion-select-option *ngFor="let w of [0.5,1,1.5,2]" [value]="w">
@@ -63,7 +63,7 @@
         </ng-container>
       </ion-label>
 
-      <div class="price">{{ item.totalPrice | number:'1.2-2' }} €</div>
+      <div class="price">{{ item.total_price | number:'1.2-2' }} €</div>
 
       <ion-button fill="clear" color="danger" (click)="removeItem(item)">
         <ion-icon name="trash-outline"></ion-icon>

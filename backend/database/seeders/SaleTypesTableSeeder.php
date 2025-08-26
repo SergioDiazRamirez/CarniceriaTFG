@@ -21,12 +21,12 @@ class SaleTypesTableSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'name' => 'units',
+                'name' => 'quantity',
                 'description' => 'Productos vendidos por unidades',
             ],
             [
                 'id' => 3,
-                'name' => 'weight_and_units',
+                'name' => 'weight_and_quantity',
                 'description' => 'Productos vendidos por peso por unidad más unidades',
             ],
         ]);

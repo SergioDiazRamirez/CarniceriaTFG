@@ -56,7 +56,7 @@
                 <span *ngIf="product.sale_type_id === 2">/Ud</span>
                 <span *ngIf="product.sale_type_id === 3">/Kg</span>
               </span>
-              <ion-icon [name]="product.isFavorite ? 'heart' : 'heart-outline'"
+              <ion-icon *ngIf="authService.isLoggedIn()" [name]="product.isFavorite ? 'heart' : 'heart-outline'"
                 [color]="product.isFavorite ? 'danger' : 'medium'" (click)="toggleFavorite(product, $event)"></ion-icon>
             </p>
           </ion-card-content>
