@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'MY_ORDERS' | translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let order of orders" lines="none">
+      <ion-card class="order-card" (click)="goToOrderDetail(order.id)">
+        <ion-card-content>
+          <div class="order-header">
+            <div class="order-info">
+              <h2>{{ 'ORDER_NUMBER' | translate }} {{ order.id }}</h2>
+              <p>{{ formatDate(order.created_at) }}</p>
+            </div>
+            <div>
+              <h2 class="price">{{ order.total_price | currency:'EUR' }}</h2>
+            </div>
+          </div>
+
+          <div class="order-status">
+            <div class="status-item">
+              <span class="status-dot" [ngClass]="statusClass(order.status_id)"></span>
+              <span class="status-label">{{ statusKey(order.status_id) | translate }}</span>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <!-- <div *ngFor="let order of orders" class="ion-padding">
+    <ion-card (click)="viewOrderDetails(order)">
+      <ion-card-header>
+        <ion-card-title>Order #{{ order.id }}</ion-card-title>
+        <ion-card-subtitle>{{ order.date | date:'medium' }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Total:</strong> ${{ order.total }}</p>
+        <ion-list>
+          <ion-item *ngFor="let item of order.items">
+            <ion-label>
+              {{ item.name }} (x{{ item.quantity }}) - ${{ item.price }}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div> -->
+</ion-content>

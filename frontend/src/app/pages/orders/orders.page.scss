@@ -1,0 +1,25 @@
+ion-card {
+  width: 80vw;
+}
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price {
+  font-weight: bold;
+}
+.order-status .status-item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.status-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.status-dot.pending   { background: var(--ion-color-medium); }
+.status-dot.processing{ background: var(--ion-color-tertiary); }
+.status-dot.shipping  { background: var(--ion-color-warning); }
+.status-dot.pickup    { background: var(--ion-color-primary); }
+.status-dot.completed { background: var(--ion-color-success); }
+.status-dot.canceled  { background: var(--ion-color-danger); }

@@ -1,0 +1,50 @@
+ion-card {
+  width: 80vw;
+  margin: 10px auto;
+}
+ion-item {
+  h2, p {
+    font-size: 10px;
+  }
+}
+.list-title {
+  font-size: 14px;
+  margin-left: 15px;
+}
+.order-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.order-info {
+  display: flex;
+  justify-content: space-between;
+}
+.price {
+  font-weight: bold;
+}
+.order-status .status-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.status-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  margin-left: 3px;
+}
+.status-dot.pending   { background: var(--ion-color-medium); }
+.status-dot.processing{ background: var(--ion-color-tertiary); }
+.status-dot.shipping  { background: var(--ion-color-warning); }
+.status-dot.pickup    { background: var(--ion-color-primary); }
+.status-dot.completed { background: var(--ion-color-success); }
+.status-dot.canceled  { background: var(--ion-color-danger); }
+
+.delivery-address {
+  display: flex;
+  align-items: center;
+  gap: 8px; // espacio entre icono y texto
+
+  .delivery-icon {
+    font-size: 18px;
+  }
+}

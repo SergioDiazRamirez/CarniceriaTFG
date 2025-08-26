@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -28,10 +29,27 @@ const routes: Routes = [
         path: 'cart',
         loadChildren: () => import('../pages/cart/cart.module').then(m => m.CartPageModule)
       },
-      // {
-      //   path: 'profile',
-      //   loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
-      // },
+      {
+        path: 'profile',
+        loadChildren: () => import('../pages/profile/profile.module').then(m => m.ProfilePageModule),
+        canActivate: [AuthGuard] 
+      },
+      {
+        path: 'login',
+        loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)
+      },
+      {
+        path: 'register',
+        loadChildren: () => import('../register/register.module').then(m => m.RegisterPageModule)
+      },
+      {
+        path: 'orders',
+        loadChildren: () => import('../pages/orders/orders.module').then(m => m.OrdersPageModule),
+      },
+      {
+        path: 'order-detail/:id',
+        loadChildren: () => import('../pages/order-detail/order-detail.module').then(m => m.OrderDetailPageModule)
+      },
       {
         path: '',
         redirectTo: '/tabs/products', //TODO: Cambiar por home

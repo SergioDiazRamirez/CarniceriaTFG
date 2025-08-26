@@ -30,6 +30,10 @@ export class ProductsPage implements OnInit {
   constructor(private productService: ProductService, private uiService: UiService,
     private categoryService: CategoryService, private router: Router, public authService: AuthService) { }
 
+  ionViewWillEnter() {
+    this.loadProducts();
+  }
+
   ngOnInit() {
     this.loadCategories();
     this.loadProducts();
@@ -99,15 +103,18 @@ export class ProductsPage implements OnInit {
     this.loadProducts(++this.page, event);
   }
 
+  //TODO: cuando se marca y desmarca una categoría, no se vuelven a mostrar todos los productos
   filterByCategory(category: Category) {
     this.selectedCategory = this.selectedCategory === category ? null : category;
     this.filterProducts();
+    this.loadProducts();
   }
 
   goToDetail(product: Product) {
-    this.router.navigate(['/tabs/product-detail', product.id], {state: {product}});
+    this.router.navigate(['/tabs/product-detail', product.id], { state: { product } });
   }
 
+  //TODO: showToast de UiService para iniciar sesión
   toggleFavorite(product: Product, event: Event) {
     event.stopPropagation(); // para que no navegue al detalle si clican el corazón
     if (product.isFavorite) {

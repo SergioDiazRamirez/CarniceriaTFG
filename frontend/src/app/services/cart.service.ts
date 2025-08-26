@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { CartItem } from '../models/cart-item.model';
+import { Item } from '../models/item.model';
 import { Product } from '../models/product.model';
 import { Preferences } from '@capacitor/preferences';
 
@@ -8,8 +8,8 @@ import { Preferences } from '@capacitor/preferences';
   providedIn: 'root'
 })
 export class CartService {
-  private cartItems: CartItem[] = [];
-  private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
+  private cartItems: Item[] = [];
+  private cartItemsSubject = new BehaviorSubject<Item[]>([]);
   cartItems$ = this.cartItemsSubject.asObservable();
   cartCount$ = this.cartItems$.pipe(
     map(items => items.reduce((acc, item) => acc + item.quantity, 0))
@@ -27,30 +27,30 @@ export class CartService {
 
     if (existingItem) {
       existingItem.quantity += quantity;
-      existingItem.totalPrice = this.calculateTotal(existingItem);
+      existingItem.total_price = this.calculateTotal(existingItem);
     } else {
-      const newItem: CartItem = {
+      const newItem: Item = {
         product,
         quantity,
         weight,
-        totalPrice: 0
+        total_price: 0
       };
-      newItem.totalPrice = this.calculateTotal(newItem);
+      newItem.total_price = this.calculateTotal(newItem);
       this.cartItems.push(newItem);
     }
     this.cartItemsSubject.next([...this.cartItems]);
     await this.saveCart();
   }
 
-  async updateItem(item: CartItem, quantity: number, weight?: number) {
+  async updateItem(item: Item, quantity: number, weight?: number) {
     item.quantity = quantity;
     item.weight = weight;
-    item.totalPrice = this.calculateTotal(item);
+    item.total_price = this.calculateTotal(item);
     this.cartItemsSubject.next([...this.cartItems]);
     await this.saveCart();
   }
 
-  async removeFromCart(item: CartItem) {
+  async removeFromCart(item: Item) {
     this.cartItems = this.cartItems.filter(i => i !== item);
     this.cartItemsSubject.next([...this.cartItems]);
     await this.saveCart();
@@ -64,18 +64,18 @@ export class CartService {
   }
 
   getTotal(): number {
-    return this.cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
+    return this.cartItems.reduce((acc, item) => acc + item.total_price, 0);
   }
 
-  private calculateTotal(item: CartItem): number {
+  private calculateTotal(item: Item): number {
     const price = item.product.price;
 
     switch (item.product.sale_type_id) {
       case 1: // Weight only
         return price * (item.weight || 1);
-      case 2: // Units only
+      case 2: // Quantity only
         return price * item.quantity;
-      case 3: // Weight + units
+      case 3: // Weight + quantity
         return price * (item.weight || 1) * item.quantity;
       default:
         return 0;
