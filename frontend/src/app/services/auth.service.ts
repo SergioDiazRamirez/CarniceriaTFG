@@ -27,20 +27,19 @@ export class AuthService {
     return await this._storage?.get('access_token');
   }
   async removeToken() {
+    localStorage.removeItem('access_token');
     await this._storage?.remove('access_token');
   }
   //--------------------------------
-  
+  //------------- Sesion ------------
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }
-
   isLoggedIn(): boolean {
     return !!localStorage.getItem('access_token');
   }
-
   async logout() {
     await this.removeToken();
-    this.router.navigate(['/tabs/home']);
   }
+
 }

@@ -21,4 +21,8 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/favorites/{product}', [FavoriteController::class, 'destroy']);
     Route::get('/orders', [OrderController::class, 'userOrders']);
     Route::get('/orders/{order}', [OrderController::class, 'show']);
+    Route::get('/user/index', [UserController::class, 'index']);
+    Route::put('/user/update', [UserController::class, 'update']);
+    Route::put('/user/password', [UserController::class, 'changePassword']);
+    Route::delete('/user', [UserController::class, 'deleteAccount']);
 });

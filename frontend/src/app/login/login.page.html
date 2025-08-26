@@ -16,8 +16,11 @@
 
     <ion-item>
       <ion-label position="floating">{{ 'PASSWORD' | translate }}</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-      <ion-icon name="eye"></ion-icon>
+      <ion-input [type]="passwordFieldType" formControlName="password">
+        <ion-icon slot="end" (click)="togglePasswordVisibility()"
+          [name]="passwordFieldType === 'password' ? 'eye-off' : 'eye'"></ion-icon>
+      </ion-input>
+
     </ion-item>
     <ion-note class="error-message" color="danger" *ngIf="password?.invalid && password?.touched">
       {{ "LOGIN.PASSWORD_REQUIRED" | translate }}
@@ -27,7 +30,7 @@
       {{ 'LOGIN.LOGIN' | translate }}
     </ion-button>
   </form>
-  <div routerLink="/register" class="toRegister">
+  <div routerLink="/tabs/register" class="toRegister">
     {{ 'REGISTER.BUTTON' | translate}}
   </div>
 </ion-content>
