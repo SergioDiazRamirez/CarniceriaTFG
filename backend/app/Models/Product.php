@@ -17,6 +17,11 @@ class Product extends Model
     ];
     protected $appends = ['isFavorite'];
 
+    public function saleType()
+    {
+        return $this->belongsTo(SaleType::class);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);
