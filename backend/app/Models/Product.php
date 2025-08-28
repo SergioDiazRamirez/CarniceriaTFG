@@ -37,16 +37,6 @@ class Product extends Model
         return $user ? $user->favoriteProducts()->where('product_id', $this->id)->exists() : false;
     }
 
-    /**
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    { 
-        return [
-            'images' => 'array',
-        ];
-    }
-
     public function images() 
     {
         return $this->hasMany(ProductImage::class);

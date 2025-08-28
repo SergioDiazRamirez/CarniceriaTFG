@@ -17,6 +17,10 @@ class ProductInfolist
                 TextEntry::make('price')
                     ->label(__('trad.price'))
                     ->money('EUR'),
+                TextEntry::make('ingredients')
+                    ->label(__('trad.ingredients')),
+                TextEntry::make('description')
+                    ->label(__('trad.description')),
                 TextEntry::make('stock')
                     ->label(__('trad.stock'))
                     ->suffix(' kg')
@@ -28,6 +32,8 @@ class ProductInfolist
                     ->limit(5),
                 TextEntry::make('saleType.description')
                     ->label(__('trad.sale_type')),
+                TextEntry::make('categories.name')
+                    ->label(__('trad.categories')),
                 TextEntry::make('created_at')
                     ->label(__('trad.created_at'))
                     ->dateTime('d M y - H:i'),

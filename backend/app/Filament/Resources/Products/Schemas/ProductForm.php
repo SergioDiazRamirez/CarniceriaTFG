@@ -8,7 +8,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Repeater;
-use App\Models\SaleType;
 
 class ProductForm
 {
@@ -34,20 +33,25 @@ class ProductForm
                 TextInput::make('stock')
                     ->label(__('trad.stock').' (kg)')
                     ->required()
-                    ->numeric(),
+                    ->numeric(),             
+                Select::make('categories')
+                    ->label(__('trad.categories'))
+                    ->multiple()
+                    ->relationship('categories', 'name')
+                    ->preload(),
+                Select::make('sale_type_id')
+                    ->label(__('trad.sale_type'))
+                    ->relationship('saleType', 'description')
+                    ->required(),
                 Repeater::make('images')
                     ->relationship()
                     ->schema([
                         FileUpload::make('path')
                             ->hiddenLabel()
-                            ->directory('products')                           
+                            ->directory('products')                       
                     ])
                     ->label(__('trad.images'))
                     ->nullable(),
-                Select::make('sale_type_id')
-                    ->label(__('trad.sale_type'))
-                    ->relationship('saleType', 'description')
-                    ->required()
             ]);
     }
 }

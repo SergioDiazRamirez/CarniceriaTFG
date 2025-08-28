@@ -27,16 +27,22 @@ class ProductsTable
                     ->label(__('trad.stock').' (kg)')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('categories')
+                    ->label(__('trad.categories'))
+                    ->getStateUsing(fn($record) => $record->categories->pluck('name')->implode(', ')),   
                 TextColumn::make('saleType.description')
                     ->label(__('trad.sale_type'))
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label(__('trad.created_at'))
+                    ->dateTime('d M y - h:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label(__('trad.updated_at'))
+                    ->dateTime('d M y - h:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
