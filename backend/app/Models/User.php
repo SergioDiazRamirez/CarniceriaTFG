@@ -27,7 +27,7 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
         'is_admin',
     ];
 
-        public function canAccessPanel(Panel $panel): bool
+    public function canAccessPanel(Panel $panel): bool
     {
         return $this->is_admin === true;
     }
@@ -44,6 +44,14 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
     public function favoriteProducts()
     {
         return $this->belongsToMany(Product::class,'favorite_user_product', 'user_id', 'product_id');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function cards()
+    {
+        return $this->hasMany(Card::class);
     }
     
     /**
