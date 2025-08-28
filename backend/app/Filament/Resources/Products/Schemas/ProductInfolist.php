@@ -12,18 +12,28 @@ class ProductInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
+                TextEntry::make('name')
+                    ->label(__('trad.name')),
                 TextEntry::make('price')
-                    ->money(),
+                    ->label(__('trad.price'))
+                    ->money('EUR'),
                 TextEntry::make('stock')
+                    ->label(__('trad.stock'))
+                    ->suffix(' kg')
                     ->numeric(),
-                ImageEntry::make('image'),
+                ImageEntry::make('images.path')
+                    ->label(__('trad.images'))
+                    ->circular() // opcional
+                    ->stacked()  // para que aparezcan una encima de otra
+                    ->limit(5),
                 TextEntry::make('saleType.description')
-                    ->label('Sale Type'),
+                    ->label(__('trad.sale_type')),
                 TextEntry::make('created_at')
-                    ->dateTime(),
+                    ->label(__('trad.created_at'))
+                    ->dateTime('d M y - H:i'),
                 TextEntry::make('updated_at')
-                    ->dateTime(),
+                    ->label(__('trad.updated_at'))
+                    ->dateTime('d M y - H:m'),
             ]);
     }
 }

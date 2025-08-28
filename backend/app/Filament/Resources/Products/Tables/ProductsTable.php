@@ -17,15 +17,18 @@ class ProductsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('trad.name'))
                     ->searchable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->label(__('trad.price'))
+                    ->money('EUR')
                     ->sortable(),
                 TextColumn::make('stock')
+                    ->label(__('trad.stock').' (kg)')
                     ->numeric()
                     ->sortable(),
-                ImageColumn::make('image'),
-                TextColumn::make('sale_type_id')
+                TextColumn::make('saleType.description')
+                    ->label(__('trad.sale_type'))
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')

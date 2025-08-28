@@ -15,7 +15,7 @@ class Product extends Model
         'image',
         'sale_type_id',
     ];
-    protected $appends = ['isFavorite'];
+    protected $appends = ['isFavorite']; //TODO: append images
 
     public function saleType()
     {
@@ -35,6 +35,21 @@ class Product extends Model
     {
         $user = auth()->user();
         return $user ? $user->favoriteProducts()->where('product_id', $this->id)->exists() : false;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    { 
+        return [
+            'images' => 'array',
+        ];
+    }
+
+    public function images() 
+    {
+        return $this->hasMany(ProductImage::class);
     }
 }
 

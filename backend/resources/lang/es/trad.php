@@ -21,5 +21,14 @@ return [
     'article' => 'Artículo',
     'pay' => 'Pago',
     'at_store' => 'En tienda',
-    'order_number' => 'Nº Pedido'
+    'order_number' => 'Nº Pedido',
+    'stock' => 'Stock',
+    'images' => 'Imágenes',
+    'sale_type' => 'Tipo de venta',
+    'ingredients' => 'Ingredientes',
+    'description' => 'Descripción',
+    'name' => 'Nombre',
+    'status_changed' => 'Estado cambiado',
+    'change_status' => 'Cambiar estado',
+    'reject' => 'Rechazar'
 ];

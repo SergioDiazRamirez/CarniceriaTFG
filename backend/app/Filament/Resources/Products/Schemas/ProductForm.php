@@ -7,6 +7,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Repeater;
 use App\Models\SaleType;
 
 class ProductForm
@@ -16,24 +17,35 @@ class ProductForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('trad.name'))
                     ->required(),
                 Textarea::make('ingredients')
+                    ->label(__('trad.ingredients'))
                     ->default(null)
                     ->columnSpanFull(),
                 Textarea::make('description')
+                    ->label(__('trad.description'))
                     ->default(null)
                     ->columnSpanFull(),
                 TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->prefix('$'),
-                TextInput::make('stock')
+                    ->label(__('trad.price').' (€)')
                     ->required()
                     ->numeric(),
-                FileUpload::make('image')
-                    ->image(),
+                TextInput::make('stock')
+                    ->label(__('trad.stock').' (kg)')
+                    ->required()
+                    ->numeric(),
+                Repeater::make('images')
+                    ->relationship()
+                    ->schema([
+                        FileUpload::make('path')
+                            ->hiddenLabel()
+                            ->directory('products')                           
+                    ])
+                    ->label(__('trad.images'))
+                    ->nullable(),
                 Select::make('sale_type_id')
-                    ->label('Sale Type')
+                    ->label(__('trad.sale_type'))
                     ->relationship('saleType', 'description')
                     ->required()
             ]);
