@@ -37,21 +37,19 @@ class OrderInfolist
                                     TextEntry::make('total_price')
                     ->label(__('trad.total_price'))
                     ->state(fn ($record) => $record->orderItems->sum('total_price'))
-                    ->suffix(' €'),
+                    ->money('EUR'),
                 RepeatableEntry::make('orderItems')
                     ->label(__('trad.products'))
-                    ->schema([
-                        TextEntry::make('product.name')->label(__('trad.article')),
+                    ->schema([ //TODO: Decidir si las columnas a null siguen visibles para cuadrar la tabla
+                        TextEntry::make('product.name')->label(__('trad.name')),
                         TextEntry::make('quantity')->label(__('trad.quantity'))
-                            ->hidden(fn ($state) => $state === null),
-                        TextEntry::make('weight')
+                            //->hidden(fn ($state) => $state === null),
+                        ,TextEntry::make('weight')
                             ->label(__('trad.weight'))
                             ->suffix(' kg')
-                            ->formatStateUsing(fn ($state) => $state !== null 
-                                ? rtrim(rtrim(number_format($state, 3, ',', ''), '0'), ',')
-                                : '')
-                            ->hidden(fn ($state) => $state === null),                            
-                        TextEntry::make('total_price')->label(__('trad.price'))->money('EUR'),
+                            ->numeric() 
+                            //->hidden(fn ($state) => $state === null),                            
+                        ,TextEntry::make('total_price')->label(__('trad.price'))->money('EUR'),
                     ])
                     ->columns(4),
             ]);
