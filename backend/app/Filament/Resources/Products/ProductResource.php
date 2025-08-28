@@ -34,7 +34,10 @@ class ProductResource extends Resource
     {
         return __('trad.products');
     }
-
+    public static function getNavigationSort(): int
+    {
+        return 2;
+    }
     public static function form(Schema $schema): Schema
     {
         return ProductForm::configure($schema);

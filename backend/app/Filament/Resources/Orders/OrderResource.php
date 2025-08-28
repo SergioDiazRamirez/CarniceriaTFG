@@ -32,7 +32,10 @@ class OrderResource extends Resource
     {
         return __('trad.orders');
     }
-
+    public static function getNavigationSort(): int
+    {
+        return 1;
+    }
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema

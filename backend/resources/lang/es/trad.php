@@ -30,5 +30,7 @@ return [
     'name' => 'Nombre',
     'status_changed' => 'Estado cambiado',
     'change_status' => 'Cambiar estado',
-    'reject' => 'Rechazar'
+    'reject' => 'Rechazar',
+    'category' => 'Categoría',
+    'categories' => 'Categorías'
 ];
