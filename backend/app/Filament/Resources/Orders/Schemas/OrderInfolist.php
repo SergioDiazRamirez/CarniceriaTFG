@@ -34,7 +34,7 @@ class OrderInfolist
                                     TextEntry::make('address_id')
                     ->label(__('trad.address'))
                     ->getStateUsing(fn ($record) => $record->address?->full_address),
-                                    TextEntry::make('total_price')
+                TextEntry::make('total_price')
                     ->label(__('trad.total_price'))
                     ->state(fn ($record) => $record->orderItems->sum('total_price'))
                     ->money('EUR'),
