@@ -2,7 +2,9 @@
 
 return [
     'user' => 'Usuario',
+    'users' => 'Usuarios',
     'email' => 'Correo electrónico',
+    'email_verified' => 'Correo verificado el',
     'status' => 'Estado',
     'card' => 'Tarjeta',
     'brand' => 'Marca',
@@ -32,5 +34,11 @@ return [
     'change_status' => 'Cambiar estado',
     'reject' => 'Rechazar',
     'category' => 'Categoría',
-    'categories' => 'Categorías'
+    'categories' => 'Categorías',
+    'total_spent' => 'Gastado',
+    'admin' => 'Administrador',
+    'password' => 'Contraseña',
+    'change_password' => 'Cambiar contraseña',
+    'new_password' => 'Nueva contraseña',
+    'confirm_password' => 'Confirmar contraseña'
 ];
