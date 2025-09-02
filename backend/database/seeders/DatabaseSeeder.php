@@ -18,12 +18,24 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
+        // User::create([
+        //     'name' => 'Sergio (asd)',
+        //     'email' => 'sergio@hotmail.com',
+        //     'password' => Hash::make('asd'),      
+        // ]);
+        // User::create([
+        //     'name' => 'Sergio Admin (asd)',
+        //     'email' => 'admin@admin.com',
+        //     'password' => Hash::make('asd'),   
+        //     'is_admin' => true,   
+        // ]);
         //TODO: Descomentar seeders
-        //$this->call(CategorySeeder::class);
+        // $this->call(CategorySeeder::class);
         // $this->call(SaleTypesTableSeeder::class);
-        //$this->call(ProductsTableSeeder::class);
+        // $this->call(ProductsTableSeeder::class);
         // $this->call(ProductWeightsTableSeeder::class);  
-        //$this->call(OrderStatusTableSeeder::class);
+        // $this->call(OrderStatusSeeder::class);
+        $this->call(AddressSeeder::class);
+        $this->call(OrderSeeder::class);
     }
 }

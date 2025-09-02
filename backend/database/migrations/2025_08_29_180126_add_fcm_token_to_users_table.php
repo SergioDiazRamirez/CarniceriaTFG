@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('order_items', function (Blueprint $table) {
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('fcm_token')->nullable();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('order_items', function (Blueprint $table) {
-            $table->dropTimestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('fcm_token');
         });
     }
 };

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\NotificationController;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
@@ -25,4 +26,6 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/user/update', [UserController::class, 'update']);
     Route::put('/user/password', [UserController::class, 'changePassword']);
     Route::delete('/user', [UserController::class, 'deleteAccount']);
+    Route::post('/user/saveFcmToken', [UserController::class, 'saveFcmToken']);
+    Route::get('/user/notification', [NotificationController::class, 'sendPushNotification']);
 });

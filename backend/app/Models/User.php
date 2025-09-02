@@ -25,6 +25,7 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
         'email',
         'password',
         'is_admin',
+        'fcm_token'
     ];
 
     public function canAccessPanel(Panel $panel): bool

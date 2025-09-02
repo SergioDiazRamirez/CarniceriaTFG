@@ -19,25 +19,13 @@ use Filament\Tables\Table;
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
-
-    public static function getNavigationLabel(): string
-    {
-        return __('trad.orders'); // Pestaña lateral
-    }
-    public static function getModelLabel(): string
-    {
-        return __('trad.order'); 
-    }
-    public static function getPluralModelLabel(): string
-    {
-        return __('trad.orders');
-    }
-    public static function getNavigationSort(): int
-    {
-        return 1;
-    }
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string { echo "Funciona"; return __('trad.orders'); } // Pestaña lateral
+    public static function getModelLabel(): string { return __('trad.order'); }
+    public static function getPluralModelLabel(): string { return __('trad.orders'); }
+    public static function getNavigationSort(): int { return 1; }
+    
     public static function form(Schema $schema): Schema
     {
         return OrderForm::configure($schema);

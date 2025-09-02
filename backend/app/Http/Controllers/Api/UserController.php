@@ -8,11 +8,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Address;
+use App\Services\FirebaseService;
 
 class UserController extends Controller
 {
     public function index()
     {
+        // $user = Auth::user(); TODO: ELIMINAR
+        // $firebase = app(FirebaseService::class);
+        // // obtener el token del usuario asociado al pedido
+        // $deviceToken = $user->fcm_token;
+        // info('after save');
+        // if ($deviceToken) {
+        //     info('Entra afterSave');
+        //     $firebase->sendToDevice(
+        //         $deviceToken,
+        //         'Estado actualizado',
+        //         "Tu pedido #{} ahora está en estado {}"
+        //     );
+        // }
+        //  info('no entra aftersave');
         $user = Auth::user();
 
         $user->load('addresses');
@@ -110,5 +125,11 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['message' => 'Cuenta eliminada']);
+    }
+
+    public function saveFcmToken(Request $request)
+    { 
+        $request->user()->update(['fcm_token' => $request->token]);
+        return response()->json(['status' => 'ok']);
     }
 }

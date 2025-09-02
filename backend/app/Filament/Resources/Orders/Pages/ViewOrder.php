@@ -7,6 +7,7 @@ use Filament\Resources\Pages\ViewRecord;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\Select;
+use App\Services\FirebaseService;
 
 class ViewOrder extends ViewRecord
 {
@@ -27,10 +28,19 @@ class ViewOrder extends ViewRecord
                         ->required(),
                 ])
                 ->action(function ($record, array $data) {
-                    //TODO: Lógica de notificaciones y front
                     $record->status_id = $data['status_id'];
                     $record->save();
 
+                    $firebase = app(FirebaseService::class);
+                    // // obtener el token del usuario asociado al pedido
+                    $deviceToken = $record->user->fcm_token;
+                    if ($deviceToken) {
+                        $title = "Título de la noti";
+                        $body = "body de la noti";
+                        $data = ["key1"=>"mifun()asdf"];
+
+                        $firebase->sendNotification($deviceToken, $title, $body, $data);
+                    }
                     Notification::make()
                         ->title(__('trad.status_changed'))
                         ->success()
