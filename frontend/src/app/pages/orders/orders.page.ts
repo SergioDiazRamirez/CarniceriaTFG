@@ -19,6 +19,10 @@ export class OrdersPage implements OnInit {
     this.loadOrders();
   }
 
+  ionViewWillEnter() {
+    this.loadOrders();
+  }
+
   loadOrders() {
     this.loading = true;
     this.orderService.getUserOrders().subscribe({

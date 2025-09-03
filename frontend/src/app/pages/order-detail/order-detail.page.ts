@@ -20,6 +20,10 @@ export class OrderDetailPage implements OnInit {
     this.orderId = +this.route.snapshot.paramMap.get('id')!; // Convierte el parámetro 'id' a número
     this.loadOrder(this.orderId);
   }
+
+  ionViewWillEnter() {
+    this.loadOrder(this.orderId);
+  }
   
   loadOrder(id: number) {
     this.loading = true;

@@ -1,72 +1,75 @@
-<ion-header>
-  <ion-toolbar color="light">
-    <ion-buttons slot="start">
-      <ion-button fill="clear">
-        <ion-icon name="logo-whatsapp"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+<ion-app>
+  <ion-header>
+    <ion-toolbar color="light">
+      <ion-buttons slot="start">
+        <ion-button fill="clear">
+          <ion-icon name="logo-whatsapp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
 
-    <ion-title>{{ 'PRODUCTS.TITLE' | translate}}</ion-title>
+      <ion-title>{{ 'PRODUCTS.TITLE' | translate}}</ion-title>
 
-    <ion-buttons slot="end">
-      <ion-button fill="clear">
-        <ion-icon name="notifications-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+      <ion-buttons slot="end">
+        <ion-button fill="clear">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
-  <!-- Buscador -->
-  <ion-searchbar placeholder="{{'SEARCH' | translate }}..." [(ngModel)]="searchTerm" (ionInput)="filterProducts()">
-  </ion-searchbar>
+  <ion-content>
+    <!-- Buscador -->
+    <ion-searchbar placeholder="{{'SEARCH' | translate }}..." [(ngModel)]="searchTerm" (ionInput)="filterProducts()">
+    </ion-searchbar>
 
-  <!-- Categorías -->
-  <div>
-    <div class="categories">
-      <ion-button *ngFor="let category of categories" fill="solid" size="small"
-        [color]="selectedCategory === category ? 'primary' : 'medium'" (click)="filterByCategory(category)">
-        {{ category.name }}
-      </ion-button>
+    <!-- Categorías -->
+    <div>
+      <div class="categories">
+        <ion-button *ngFor="let category of categories" fill="solid" size="small"
+          [color]="selectedCategory === category ? 'primary' : 'medium'" (click)="filterByCategory(category)">
+          {{ category.name }}
+        </ion-button>
+      </div>
     </div>
-  </div>
-  <!-- Botón para mostrar favoritos -->
-  <ion-button *ngIf="authService.isLoggedIn()" [color]="isFavoritesFilter === true ? 'primary' : 'medium'"
-    fill="outline" size="small" (click)="toggleFavoritesFilter()">
-    {{ 'PRODUCTS.MY_FAVORITES' | translate }}
-  </ion-button>
-  
-  <!-- Lista de productos -->
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6" *ngFor="let product of filteredProducts">
-        <ion-card (click)="goToDetail(product)">
-          <ng-container *ngIf="product.image; else noImage">
-            <img [src]="product.image" alt="{{ product.name }}">
-          </ng-container>
-          <ng-template #noImage>
-            <ion-icon name="image-outline" style="font-size: 140px; color: #ccc;"></ion-icon>
-          </ng-template>
-          <ion-card-content>
-            <div>{{ product.name }}</div>
-            <p>
-              <span>
-                {{ product.price | currency:'EUR':'symbol':'1.2-2' }}
-                <span *ngIf="product.sale_type_id === 1">/Kg</span>
-                <span *ngIf="product.sale_type_id === 2">/Ud</span>
-                <span *ngIf="product.sale_type_id === 3">/Kg</span>
-              </span>
-              <ion-icon *ngIf="authService.isLoggedIn()" [name]="product.isFavorite ? 'heart' : 'heart-outline'"
-                [color]="product.isFavorite ? 'danger' : 'medium'" (click)="toggleFavorite(product, $event)"></ion-icon>
-            </p>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <!-- Botón para mostrar favoritos -->
+    <ion-button *ngIf="authService.isLoggedIn()" [color]="isFavoritesFilter === true ? 'primary' : 'medium'"
+      fill="outline" size="small" (click)="toggleFavoritesFilter()">
+      {{ 'PRODUCTS.MY_FAVORITES' | translate }}
+    </ion-button>
 
-  <ion-infinite-scroll [disabled]="this.isInfiniteDisabled" threshold="100px" (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'PRODUCTS.LOADING_MORE' | translate }}...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-</ion-content>
+    <!-- Lista de productos -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let product of filteredProducts">
+          <ion-card (click)="goToDetail(product)">
+            <ng-container *ngIf="product.image; else noImage">
+              <img [src]="product.image" alt="{{ product.name }}">
+            </ng-container>
+            <ng-template #noImage>
+              <ion-icon name="image-outline" style="font-size: 140px; color: #ccc;"></ion-icon>
+            </ng-template>
+            <ion-card-content>
+              <div>{{ product.name }}</div>
+              <p>
+                <span>
+                  {{ product.price | currency:'EUR':'symbol':'1.2-2' }}
+                  <span *ngIf="product.sale_type_id === 1">/Kg</span>
+                  <span *ngIf="product.sale_type_id === 2">/Ud</span>
+                  <span *ngIf="product.sale_type_id === 3">/Kg</span>
+                </span>
+                <ion-icon *ngIf="authService.isLoggedIn()" [name]="product.isFavorite ? 'heart' : 'heart-outline'"
+                  [color]="product.isFavorite ? 'danger' : 'medium'"
+                  (click)="toggleFavorite(product, $event)"></ion-icon>
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-infinite-scroll [disabled]="this.isInfiniteDisabled" threshold="100px" (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'PRODUCTS.LOADING_MORE' | translate }}...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-app>

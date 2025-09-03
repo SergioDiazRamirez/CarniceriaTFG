@@ -16,6 +16,9 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
+import { environment } from '../environments/environment';
+
+
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -29,7 +32,7 @@ registerLocaleData(localeEs);
                 suffix: '.json'
             }),
                 fallbackLang: 'es'
-            })
+            }),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

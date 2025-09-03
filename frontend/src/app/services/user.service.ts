@@ -3,6 +3,7 @@ import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,13 @@ export class UserService {
   }
   deleteAccount(): Observable<any> {
     return this.http.delete(`${this.baseUrl}`);
+  }
+
+  async sendFcmToken(fcmToken: string) {
+    return await firstValueFrom(this.http.post(`${this.baseUrl}/saveFcmToken`,{token: fcmToken}));
+  }
+  sendNotification(): Observable<any> {
+    console.log("notificacion");
+    return this.http.get(`${this.baseUrl}/notification`)
   }
 }

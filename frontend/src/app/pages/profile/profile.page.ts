@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ToastController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { ToastController, AlertController, NavController } from '@ionic/angular';
 import { User } from 'src/app/models/user.model';
 import { TranslateService } from '@ngx-translate/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,7 +19,7 @@ export class ProfilePage implements OnInit {
   editEmail = false;
   userForm!: FormGroup;
   constructor(private userService: UserService, private toastCtrl: ToastController,
-    private alertCtrl: AlertController, private router: Router, private translate: TranslateService,
+    private alertCtrl: AlertController, private navCtrl: NavController, private translate: TranslateService,
     private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit() {
@@ -100,8 +99,14 @@ export class ProfilePage implements OnInit {
     });
     await alert.present();
   }
+
+  noti(){
+    this.userService.sendNotification().subscribe((res) => {
+      console.log(res)
+    });
+  }
   goToOrders() {
-    this.router.navigate(['/tabs/orders']);
+    this.navCtrl.navigateForward('/tabs/orders');
   }
 
   goToCards() {
@@ -142,7 +147,7 @@ export class ProfilePage implements OnInit {
   logout() {
     this.authService.logout();
     this.showToast(this.translate.instant('LOGGED_OUT'));
-    this.router.navigate(['/tabs/products']);  
+    this.navCtrl.navigateForward('/tabs/products');  
   }
 
   async deleteAccount() {

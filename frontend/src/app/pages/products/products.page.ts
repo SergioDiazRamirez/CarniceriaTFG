@@ -5,9 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { UiService } from 'src/app/services/ui.service';
 import { Category } from 'src/app/models/category.model';
 import { CategoryService } from 'src/app/services/category.service';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-products',
@@ -28,7 +27,7 @@ export class ProductsPage implements OnInit {
   isInfiniteDisabled = false;
 
   constructor(private productService: ProductService, private uiService: UiService,
-    private categoryService: CategoryService, private router: Router, public authService: AuthService) { }
+    private categoryService: CategoryService, private navCtrl: NavController, public authService: AuthService) { }
 
   ionViewWillEnter() {
     this.loadProducts();
@@ -111,7 +110,7 @@ export class ProductsPage implements OnInit {
   }
 
   goToDetail(product: Product) {
-    this.router.navigate(['/tabs/product-detail', product.id], { state: { product } });
+    this.navCtrl.navigateForward(['/tabs/product-detail', product.id], { state: { product } });
   }
 
   //TODO: showToast de UiService para iniciar sesión
